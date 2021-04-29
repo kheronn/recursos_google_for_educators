@@ -3,11 +3,11 @@ import React from 'react';
 
 import { useRoute } from "@react-navigation/native";
 import {
-        Text,
-        View,
-        Image,
-        StyleSheet,
-        FlatList
+    Text,
+    View,
+    Image,
+    StyleSheet,
+    FlatList
 } from 'react-native';
 import { Resource } from "../models/Resource";
 import colors from "../styles/colors";
@@ -17,27 +17,27 @@ import api from '../services/api';
 
 interface Params {
     resources: Resource[]
+    category: string,
+    image: string,
 }
 
 
 export function Resources() {
 
     const route = useRoute();
-    const { resources } = route.params as Params
+    const { resources, category, image } = route.params as Params
 
 
-  
+
 
 
     return (
         <View style={styles.container}>
-            <Header />
+            <Header name="" category={category} image={image} />
 
 
-            <View style={styles.plants}>
-                <Text style={styles.plantsTitle}>
-                    Recursos para cataegoria
-                </Text>
+            <View style={styles.resources}>
+
 
 
             </View>
@@ -74,11 +74,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         textAlign: 'justify'
     },
-    plants: {
+    resources: {
         flex: 1,
         width: '100%',
     },
-    plantsTitle: {
+    resourcesTitle: {
         fontSize: 24,
         fontFamily: fonts.heading,
         color: colors.heading,

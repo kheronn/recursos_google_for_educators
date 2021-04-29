@@ -4,18 +4,18 @@ import colors from '../styles/colors';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import fonts from '../styles/fonts';
 
-export function Header() {
+export function Header(props: { name: string, category: string, image: any }) {
 
     return (
         <View style={styles.container}>
             <View>
-                <Text style={styles.greeting}>Olá</Text>
-                <Text style={styles.userName}>Educador</Text>
+                <Text style={styles.greeting}>{props.name}</Text>
+                <Text style={styles.userName}>{props.category}</Text>
             </View>
 
             <Image
                 style={styles.image}
-                source={require('../assets/teacher_avatar.png')} />
+                source={props.image} />
         </View>
     );
 }
@@ -24,9 +24,10 @@ const styles = StyleSheet.create({
     container: {
         width: '100%',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         alignItems: 'center',
         paddingVertical: 20,
+        paddingHorizontal: 20,
         marginTop: getStatusBarHeight(),
     },
     image: {
