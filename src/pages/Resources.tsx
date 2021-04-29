@@ -27,19 +27,11 @@ export function Resources() {
     const route = useRoute();
     const { resources, category, image } = route.params as Params
 
-
-
-
-
     return (
         <View style={styles.container}>
             <Header name="" category={category} image={image} />
 
-
             <View style={styles.resources}>
-
-
-
             </View>
         </View>
     )
