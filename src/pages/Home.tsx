@@ -28,7 +28,7 @@ export function Home() {
 
         setTimeout(() => {
             setLoad(false);
-        }, 5000)
+        }, 2000)
 
     }
 

@@ -5,15 +5,17 @@ import { useRoute } from "@react-navigation/native";
 import {
     Text,
     View,
-    Image,
     StyleSheet,
-    FlatList
+    FlatList,
+    Linking,
+    Share
 } from 'react-native';
 import { Resource } from "../models/Resource";
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
 import { Header } from '../components/Header';
 import api from '../services/api';
+import { ResourceCard } from '../components/ResourceCard';
 
 interface Params {
     resources: Resource[]
@@ -27,11 +29,39 @@ export function Resources() {
     const route = useRoute();
     const { resources, category, image } = route.params as Params
 
+    async function handleShare(resource: Resource) {
+        try {
+            const result = await Share.share({
+                message: resource.link,
+            })
+        } catch (erro) { }
+    }
+    async function handleOpen(resource: Resource) {
+        try {
+            Linking.canOpenURL(resource.link).then(supported => {
+                if (supported) {
+                    Linking.openURL(resource.link)
+                }
+            })
+        } catch (erro) { }
+    }
+
     return (
         <View style={styles.container}>
             <Header name="" category={category} image={image} />
 
             <View style={styles.resources}>
+                <FlatList
+                    data={resources}
+                    keyExtractor={(item) => String(item.titulo)}
+                    renderItem={({ item }) => (
+                        <ResourceCard
+                            handleShare={() => { handleShare(item) }}
+                            handleOpen={() => { handleOpen(item) }}
+                            data={item} />
+                    )}
+                    showsVerticalScrollIndicator={false}
+                />
             </View>
         </View>
     )
@@ -42,7 +72,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingHorizontal: 20,
+        paddingHorizontal: 5,
         paddingTop: 10,
         backgroundColor: colors.background,
     },
@@ -71,7 +101,7 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     resourcesTitle: {
-        fontSize: 24,
+        fontSize: 14,
         fontFamily: fonts.heading,
         color: colors.heading,
         marginVertical: 10,
