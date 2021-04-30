@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 
 import { useRoute } from "@react-navigation/native";
@@ -16,6 +16,7 @@ import fonts from "../styles/fonts";
 import { Header } from '../components/Header';
 import api from '../services/api';
 import { ResourceCard } from '../components/ResourceCard';
+import { SearchBar } from '../components/SearchBar';
 
 interface Params {
     resources: Resource[]
@@ -28,6 +29,10 @@ export function Resources() {
 
     const route = useRoute();
     const { resources, category, image } = route.params as Params
+
+    const [resourcesFiltered, setResourcesFiltered] = useState(resources);
+
+    
 
     async function handleShare(resource: Resource) {
         try {
@@ -46,13 +51,23 @@ export function Resources() {
         } catch (erro) { }
     }
 
+    function handleSearch(query: string) {
+        const data = resources.filter((resource) =>
+            resource.titulo
+                .toLowerCase()
+                .match(query.toLowerCase()))
+
+        setResourcesFiltered(data);
+
+    }
+
     return (
         <View style={styles.container}>
             <Header name="" category={category} image={image} />
 
             <View style={styles.resources}>
                 <FlatList
-                    data={resources}
+                    data={resourcesFiltered}
                     keyExtractor={(item) => String(item.titulo)}
                     renderItem={({ item }) => (
                         <ResourceCard
@@ -61,6 +76,7 @@ export function Resources() {
                             data={item} />
                     )}
                     showsVerticalScrollIndicator={false}
+                    ListHeaderComponent={<SearchBar handleSearch={handleSearch} />}
                 />
             </View>
         </View>

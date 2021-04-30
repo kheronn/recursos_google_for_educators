@@ -12,7 +12,7 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 import { AntDesign, Entypo, Feather } from '@expo/vector-icons';
 import colors from '../styles/colors';
-import fonts from '../styles/fonts';
+
 interface ResourceProps extends RectButtonProps {
     data: {
         titulo: string;
@@ -81,11 +81,11 @@ const styles = StyleSheet.create({
         shadowColor: '#00000021',
         shadowOffset: {
             width: 0,
-            height: 6,
+            height: 3,
         },
         shadowOpacity: 0.37,
         shadowRadius: 7.49,
-        elevation: 12,
+        elevation: 5,
         margin: 8,
         borderRadius: 30,
 
