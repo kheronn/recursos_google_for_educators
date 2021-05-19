@@ -125,8 +125,8 @@ const styles = StyleSheet.create({
 
     },
     buttonShare: {
-        width: 100,
-        height: 85,
+        width: 80,
+        height: 65,
         backgroundColor: colors.green,
         marginTop: 15,
         borderRadius: 20,

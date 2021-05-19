@@ -58,7 +58,6 @@ export function Resources() {
                 .match(query.toLowerCase()))
 
         setResourcesFiltered(data);
-
     }
 
     return (
